@@ -2,42 +2,42 @@
     <div>
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-                <span>未完成任务</span>
-                (<span>{{ this.unfinishWork.length }}</span>)
+                <span>已完成任务</span>
+                (<span>{{ this.finishedWork.length }}</span>)
             </div>
-            <div v-for="(work, index) in unfinishWork" :key="index" class="text item one-work">
+            <div v-for="(work, index) in finishedWork" :key="index" class="text item one-work">
                 <p class="finish-main">
                     <span>任务名称：</span>
                     <span v-text="work.name"></span>
                 </p>
                 <p class="finish-extend">
                     <span>任务内容：</span>
-                    <span v-text="work.content"></span>
+                    <span>{{ work.startTime + '-' + work.endTime }}</span>
                 </p>
-                <div class="operation-icon">
-                    <i class="delete-work el-icon-check"></i>
-                    <i class="delete-work el-icon-close" style="right:20px;"></i>
-                    <i class="delete-work el-icon-document" style="right:40px;"></i>
-                    <i class="delete-work el-icon-upload2" style="right:60px;"></i>
-                </div>
+                <i class="delete-work el-icon-error"></i>
             </div>
         </el-card>
     </div>
 </template>
 
 <script>
-import date from '../assets/date'
-
 export default {
-    mixins: [date],
     data() {
         return {
-            unfinishWork: []
+            finishedWork: [{
+                name: '111',
+                startTime: '12:23:23',
+                endTime: '12:23:44'
+            },{
+                name: '111',
+                startTime: '12:23:23',
+                endTime: '12:23:44'
+            }, {
+                name: '111',
+                startTime: '12:23:23',
+                endTime: '12:23:44'
+            }]
         }
-    },
-    mounted() {
-        // 形成应用关系
-        this.unfinishWork = this.$store.state.work.unfinishWork;
     }
 }
 </script>
@@ -67,11 +67,5 @@ export default {
         top: 0px;
         right: 0px;
     }
-    .operation-icon {
-        display: none;
-    }
-    &:hover .operation-icon {
-        display: block;
-    } 
 }
 </style>
