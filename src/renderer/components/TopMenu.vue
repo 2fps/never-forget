@@ -1,14 +1,16 @@
 <template>
-    <div class="top-menu">
-        <div class="left-side">
-            <i class="el-icon-upload2"></i>
-            <span>never forget</span>
+    <div>
+        <div class="top-menu">
+            <div class="left-side">
+                <i class="el-icon-document right-corner"></i>
+                <span>never forget</span>
+            </div>
         </div>
         <div class="right-side">
-            <i class="el-icon-upload2"></i>
-            <i class="el-icon-minus" @click="minApp()"></i>
-            <i class="el-icon-upload2"></i>
-            <i class="el-icon-close" @click="closeApp()"></i>
+            <!-- <i class="el-icon-upload2 right-corner"></i> -->
+            <i class="el-icon-minus right-corner" @click="minApp()"></i>
+            <i class="el-icon-sort right-corner" @click="maxApp()"></i>
+            <i class="el-icon-close right-corner" @click="closeApp()"></i>
         </div>
     </div>
 </template>
@@ -32,6 +34,10 @@ export default {
         // 最小化app
         minApp() {
             ipc.send('min-app');
+        },
+        // 最大化app
+        maxApp() {
+            ipc.send('max-app');
         }
     }
 }
@@ -41,7 +47,7 @@ export default {
 .top-menu {
     position: absolute;
     top: 0px;
-    right: 0px;
+    right: 120px;
     left: 65px;
     height: 30px;
     line-height: 30px;
@@ -50,8 +56,15 @@ export default {
     .left-side {
         float: left;
     }
-    .right-side {
-        float: right;
-    }
+}
+.right-side {
+    float: right;
+}
+.right-corner {
+    cursor: pointer;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    padding: 7px;
 }
 </style>

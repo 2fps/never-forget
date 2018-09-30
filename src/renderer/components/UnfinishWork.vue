@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="height:100%">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>未完成任务</span>
@@ -15,9 +15,9 @@
                     <span v-text="work.content"></span>
                 </p>
                 <div class="operation-icon" @click.stop>
-                    <i class="delete-work el-icon-check" @click="finish(work.ID)"></i>
-                    <i class="delete-work el-icon-close" style="right:20px;" @click="remove(work.ID)"></i>
-                    <i class="delete-work el-icon-upload2" style="right:40px;" @click="toTop(work.ID)"></i>
+                    <i class="delete-work el-icon-check" title="完成" @click="finish(work.ID)"></i>
+                    <i class="delete-work el-icon-close" title="删除" style="right:20px;" @click="remove(work.ID)"></i>
+                    <i class="delete-work el-icon-upload2" title="置顶" style="right:40px;" @click="toTop(work.ID)"></i>
                 </div>
             </div>
         </el-card>
@@ -46,24 +46,6 @@ export default {
         // 置顶未完成的工作
         toTop (Id) {
             this.$store.commit('topWork', Id);
-        },
-        open3() {
-            this.$prompt('请输入邮箱', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                inputErrorMessage: '邮箱格式不正确'
-            }).then(({ value }) => {
-                this.$message({
-                type: 'success',
-                message: '你的邮箱是: ' + value
-                });
-            }).catch(() => {
-                this.$message({
-                type: 'info',
-                message: '取消输入'
-                });
-            });
         }
     }
 }
@@ -74,11 +56,17 @@ export default {
     width: 40%;
 }
 .box-card {
-    margin: 10px 20px;
+    margin: 0 20px;
+    overflow: scroll;
+    height: 100%;
+    box-sizing: border-box;
 }
 .one-work {
-    margin-bottom: 8px;
+    padding: 5px 5px 8px;
     position: relative;
+    &:hover {
+        background-color: #EBEEF5;
+    }
     .finish-main {
         color: #606266;
         font-size: 14px;

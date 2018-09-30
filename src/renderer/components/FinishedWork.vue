@@ -14,7 +14,10 @@
                     <span>任务内容：</span>
                     <span v-text="work.content"></span>
                 </p>
-                <i class="delete-work el-icon-error" click="delete(work.ID)"></i>
+                
+                <div class="operation-icon" @click.stop>
+                    <i class="delete-work el-icon-close" title="删除" @click="remove(work.ID)"></i>
+                </div>
             </div>
         </el-card>
     </div>
@@ -28,9 +31,10 @@ export default {
         }
     },
     methods: {
-        delete (Id) {
+        remove (Id) {
             this.$store.commit('deleteFinishedWork', Id);
-        }
+        },
+        
     },
     mounted() {
         this.finishedWork = this.$store.state.work.finishedWork;
@@ -43,11 +47,17 @@ export default {
     width: 40%;
 }
 .box-card {
-    margin: 10px 20px;
+    margin: 0 20px;
+    overflow: scroll;
+    height: 100%;
+    box-sizing: border-box;
 }
 .one-work {
-    margin-bottom: 8px;
+    padding: 5px 5px 8px;
     position: relative;
+    &:hover {
+        background-color: #EBEEF5;
+    }
     .finish-main {
         color: #606266;
         font-size: 14px;
@@ -62,6 +72,13 @@ export default {
         position: absolute;
         top: 0px;
         right: 0px;
+        cursor: pointer;
     }
+    .operation-icon {
+        display: none;
+    }
+    &:hover .operation-icon {
+        display: block;
+    } 
 }
 </style>

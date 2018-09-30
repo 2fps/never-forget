@@ -1,22 +1,23 @@
 <template>
-    <div>
-        活动名称
+    <div class="main-work">
+        <p>活动名称:</p>
         <el-input v-model="name" size="small"></el-input>
-        细节内容
+        <p>细节内容</p>
         <el-input
             type="textarea"
             :rows="2"
             placeholder="请输入内容"
             v-model="content">
         </el-input>
-        <el-switch
-            v-model="isTop"
-            active-color="#409EFF"
-            active-text="是否置顶"
-            inactive-color="#909399">
-        </el-switch>
-        <el-button type="primary" @click="addNewWork()">新增</el-button>
-        <el-button type="primary" @click="newAdd()">新窗口</el-button>
+        <p>
+            <el-switch
+                v-model="isTop"
+                active-color="#409EFF"
+                active-text="是否置顶"
+                inactive-color="#909399">
+            </el-switch>
+        </p>
+        <el-button type="primary" @click="addNewWork()">新增任务</el-button>
     </div>
 </template>
 
@@ -33,6 +34,11 @@ export default {
     },
     methods: {
         addNewWork() {
+            if ('' === this.name) {
+                this.$message.error('请输入名称');
+
+                return;
+            }
             this.$store.commit('addID');
             this.$store.commit('addNewWork', {
                 name: this.name,
@@ -40,6 +46,9 @@ export default {
                 ID: this.$store.getters.getID,
                 isTop: this.isTop
             });
+            // 清空数据
+            this.name = '';
+            this.content = '';
         },
         newAdd() {
             ipc.send('eyeProtection');
@@ -49,6 +58,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-work {
+    padding: 10px;
+}
 .unfinish-time-input {
     width: 40%;
 }

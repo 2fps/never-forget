@@ -57,9 +57,13 @@ ipc.on('eyeProtection',()=>{
 });
 
 ipc.on('close-app', () => {
+  console.log(111);
   mainWindow.close();
 });
 
+ipc.on('max-app', () => {
+  mainWindow.maximize();
+});
 ipc.on('min-app', () => {
   mainWindow.minimize();
 });
