@@ -20,7 +20,8 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
-    width: 1000
+    width: 1000,
+    frame:false
   })
 
   mainWindow.loadURL(winURL)
@@ -43,3 +44,22 @@ app.on('activate', () => {
     createWindow()
   }
 })
+const ipc = require('electron').ipcMain,
+path = require('fs');
+ipc.on('eyeProtection',()=>{
+    let newwin = new BrowserWindow({
+        width: 600, 
+        height: 400,
+        frame: false,
+        parent: mainWindow //win是主窗口
+    })
+    alert();
+});
+
+ipc.on('close-app', () => {
+  mainWindow.close();
+});
+
+ipc.on('min-app', () => {
+  mainWindow.minimize();
+});

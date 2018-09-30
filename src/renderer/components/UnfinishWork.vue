@@ -14,11 +14,10 @@
                     <span>任务内容：</span>
                     <span v-text="work.content"></span>
                 </p>
-                <div class="operation-icon">
-                    <i class="delete-work el-icon-check"></i>
-                    <i class="delete-work el-icon-close" style="right:20px;"></i>
-                    <i class="delete-work el-icon-document" style="right:40px;"></i>
-                    <i class="delete-work el-icon-upload2" style="right:60px;"></i>
+                <div class="operation-icon" @click.stop>
+                    <i class="delete-work el-icon-check" @click="finish(work.ID)"></i>
+                    <i class="delete-work el-icon-close" style="right:20px;" @click="remove(work.ID)"></i>
+                    <i class="delete-work el-icon-upload2" style="right:40px;" @click="toTop(work.ID)"></i>
                 </div>
             </div>
         </el-card>
@@ -26,10 +25,7 @@
 </template>
 
 <script>
-import date from '../assets/date'
-
 export default {
-    mixins: [date],
     data() {
         return {
             unfinishWork: []
@@ -38,6 +34,37 @@ export default {
     mounted() {
         // 形成应用关系
         this.unfinishWork = this.$store.state.work.unfinishWork;
+    },
+    methods: {
+        finish(Id) {
+            this.$store.commit('doFinish', Id);
+        },
+        // 删除未完成的工作
+        remove(Id) {
+            this.$store.commit('deleteUnfinishWork', Id);
+        },
+        // 置顶未完成的工作
+        toTop (Id) {
+            this.$store.commit('topWork', Id);
+        },
+        open3() {
+            this.$prompt('请输入邮箱', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+                inputErrorMessage: '邮箱格式不正确'
+            }).then(({ value }) => {
+                this.$message({
+                type: 'success',
+                message: '你的邮箱是: ' + value
+                });
+            }).catch(() => {
+                this.$message({
+                type: 'info',
+                message: '取消输入'
+                });
+            });
+        }
     }
 }
 </script>
@@ -66,6 +93,7 @@ export default {
         position: absolute;
         top: 0px;
         right: 0px;
+        cursor: pointer;
     }
     .operation-icon {
         display: none;

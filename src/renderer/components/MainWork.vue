@@ -9,28 +9,40 @@
             placeholder="请输入内容"
             v-model="content">
         </el-input>
-        <el-button type="primary" @click="addNewWork()">成功按钮</el-button>
+        <el-switch
+            v-model="isTop"
+            active-color="#409EFF"
+            active-text="是否置顶"
+            inactive-color="#909399">
+        </el-switch>
+        <el-button type="primary" @click="addNewWork()">新增</el-button>
+        <el-button type="primary" @click="newAdd()">新窗口</el-button>
     </div>
 </template>
 
 <script>
-let ID = 0;
+const ipc = require('electron').ipcRenderer;
 
 export default {
     data() {
         return {
-            startTime: '',
-            content: ''
+            name: '',
+            content: '',
+            isTop: false
         }
     },
     methods: {
         addNewWork() {
+            this.$store.commit('addID');
             this.$store.commit('addNewWork', {
-                workName: this.workName,
+                name: this.name,
                 content: this.content,
-                id: ID
+                ID: this.$store.getters.getID,
+                isTop: this.isTop
             });
-            ID++;
+        },
+        newAdd() {
+            ipc.send('eyeProtection');
         }
     }
 }

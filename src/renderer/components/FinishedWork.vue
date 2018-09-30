@@ -12,9 +12,9 @@
                 </p>
                 <p class="finish-extend">
                     <span>任务内容：</span>
-                    <span>{{ work.startTime + '-' + work.endTime }}</span>
+                    <span v-text="work.content"></span>
                 </p>
-                <i class="delete-work el-icon-error"></i>
+                <i class="delete-work el-icon-error" click="delete(work.ID)"></i>
             </div>
         </el-card>
     </div>
@@ -24,20 +24,16 @@
 export default {
     data() {
         return {
-            finishedWork: [{
-                name: '111',
-                startTime: '12:23:23',
-                endTime: '12:23:44'
-            },{
-                name: '111',
-                startTime: '12:23:23',
-                endTime: '12:23:44'
-            }, {
-                name: '111',
-                startTime: '12:23:23',
-                endTime: '12:23:44'
-            }]
+            finishedWork: []
         }
+    },
+    methods: {
+        delete (Id) {
+            this.$store.commit('deleteFinishedWork', Id);
+        }
+    },
+    mounted() {
+        this.finishedWork = this.$store.state.work.finishedWork;
     }
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <app-menu></app-menu>
+        <top-menu></top-menu>
         <div class="right-content">
             <router-view></router-view>
         </div>
@@ -9,11 +10,13 @@
 
 <script>
 import AppMenu from './components/AppMenu';
+import TopMenu from './components/TopMenu';
 
 export default {
     name: 'never-forget',
     components: {
-        AppMenu
+        AppMenu,
+        TopMenu
     }
 }
 </script>
@@ -28,6 +31,10 @@ html, body {
     height: 100%;
 }
 .right-content {
-    margin-left: 65px;
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    bottom: 0px;
+    left: 65px;
 }
 </style>

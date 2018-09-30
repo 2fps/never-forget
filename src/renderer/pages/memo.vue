@@ -7,7 +7,7 @@
             <unfinish-work></unfinish-work>
         </el-col>
         <el-col :span="9">
-            <finish-work></finish-work>
+            <finished-work></finished-work>
         </el-col>
     </el-row>
 </template>
@@ -15,13 +15,13 @@
 <script>
 import MainWork from '../components/MainWork'
 import UnfinishWork from '../components/UnfinishWork'
-import FinishWork from '../components/FinishWork'
+import FinishedWork from '../components/FinishedWork'
 
 export default {
     components: {
         MainWork,
         UnfinishWork,
-        FinishWork
+        FinishedWork
     }
 }
 </script>
