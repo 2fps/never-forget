@@ -1,3 +1,5 @@
+import cache from '../../assets/dataBase';
+
 const state = {
     unfinishWork: [],
     finishedWork: [],
@@ -59,6 +61,26 @@ const mutations = {
         let index = findIndex(state.finishedWork, workId);
 
         state.finishedWork.splice(index, 1);
+    },
+    writeCache(state) {
+        cache.saveWorkData({
+            unfinishWork: state.unfinishWork,
+            finishedWork: state.finishedWork
+        });
+    },
+    readCache(state) {
+        let data = cache.getWorkData();
+
+        // 检测unfinishWork是否有缓存
+        if (data.unfinishWork) {
+            state.unfinishWork.length = 0;
+            state.unfinishWork.push(...data.unfinishWork);
+        }
+        // 检测finishedWork是否有缓存
+        if (data.finishedWork) {
+            state.finishedWork.length = 0;
+            state.finishedWork.push(...data.finishedWork);
+        }
     }
 }
 // 根据id属性从arr中检索出他的位置（下标）

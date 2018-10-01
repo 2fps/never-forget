@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="top-menu-bg">
         <div class="top-menu">
             <div class="left-side">
                 <i class="el-icon-document right-corner"></i>
@@ -47,18 +47,20 @@ export default {
 .top-menu {
     position: absolute;
     top: 0px;
-    right: 120px;
+    right: 88px;
     left: 65px;
     height: 30px;
     line-height: 30px;
     -webkit-app-region: drag;
     border-bottom: 1px solid #f5f5f5;
+    background-color: #E6E5E6;
     .left-side {
         float: left;
     }
 }
 .right-side {
     float: right;
+    background-color: #E6E5E6;
 }
 .right-corner {
     cursor: pointer;

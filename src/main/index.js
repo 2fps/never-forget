@@ -44,8 +44,7 @@ app.on('activate', () => {
     createWindow()
   }
 })
-const ipc = require('electron').ipcMain,
-path = require('fs');
+const ipc = require('electron').ipcMain;
 ipc.on('eyeProtection',()=>{
     let newwin = new BrowserWindow({
         width: 600, 
@@ -53,12 +52,13 @@ ipc.on('eyeProtection',()=>{
         frame: false,
         parent: mainWindow //win是主窗口
     })
-    alert();
 });
 
 ipc.on('close-app', () => {
-  console.log(111);
-  mainWindow.close();
+    mainWindow.webContents.send('app-close');
+    ipc.on('close-app-ok', () => {
+        mainWindow.close();
+    });
 });
 
 ipc.on('max-app', () => {
@@ -67,3 +67,6 @@ ipc.on('max-app', () => {
 ipc.on('min-app', () => {
   mainWindow.minimize();
 });
+/* 
+app.on('will-quit', () => {
+}) */

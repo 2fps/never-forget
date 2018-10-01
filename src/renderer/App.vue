@@ -38,6 +38,10 @@ html, body {
     right: 0px;
     bottom: 0px;
     left: 65px;
+    background-color: #F5F5F5;
+}
+.align-center {
+    text-align: center;
 }
 /* 设置滚动条的样式 */
 ::-webkit-scrollbar {

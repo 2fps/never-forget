@@ -1,23 +1,31 @@
 <template>
     <div class="main-work">
-        <p>活动名称:</p>
-        <el-input v-model="name" size="small"></el-input>
-        <p>细节内容</p>
-        <el-input
-            type="textarea"
-            :rows="2"
-            placeholder="请输入内容"
-            v-model="content">
-        </el-input>
-        <p>
+        <div class="form-row">
+            <p>任务名称:</p>
+            <el-input
+                v-model="name"
+                placeholder="请输入任务名称"
+                size="small">
+            </el-input>
+        </div>
+        <div class="form-row">
+            <p>细节内容:</p>
+            <el-input
+                type="textarea"
+                :rows="2"
+                placeholder="请输入详细内容"
+                v-model="content">
+            </el-input>
+        </div>
+        <div class="form-row">
             <el-switch
                 v-model="isTop"
                 active-color="#409EFF"
                 active-text="是否置顶"
                 inactive-color="#909399">
             </el-switch>
-        </p>
-        <el-button type="primary" @click="addNewWork()">新增任务</el-button>
+        </div>
+        <el-button type="primary" class="align-center" @click="addNewWork()">新增任务</el-button>
     </div>
 </template>
 
@@ -60,6 +68,12 @@ export default {
 <style lang="scss" scoped>
 .main-work {
     padding: 10px;
+    .form-row {
+        margin-bottom: 20px;
+        & > p {
+            margin-bottom: 10px;
+        }
+    }
 }
 .unfinish-time-input {
     width: 40%;
