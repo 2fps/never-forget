@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        html, body {
+            background-color: #000;
+            color: #409EFF;
+        }
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align:center;
+            transform: translate(-50%, -50%);
+        }
+        </style>
+</head>
+<body>
+    <div class="box">
+        00:59
+    </div>
+</body>
+<script>
+var obox = document.getElementsByClassName('box')[0],
+    timer = null,
+    time = 59;
+
+timer = setInterval(function() {
+    time--;
+
+    obox.innerText = '00:' + pad(time);
+
+    if (0 === time) {
+        clearInterval(timer);
+    }
+}, 1000);
+
+// 一位数添加0处理
+function pad(val) {
+    val += '';
+    if (val.length < 2) {
+        val = '0' + val;
+    }
+
+    return val;
+}
+
+</script>
+</html>

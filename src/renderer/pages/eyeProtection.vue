@@ -14,14 +14,16 @@
 </template>
 
 <script>
-let worker = null;
+const ipc = require('electron').ipcRenderer;
+let worker = null,
+    me = null;
 
 export default {
     data() {
         return {
             enable: false,
-            last: 45,
-            duration: 3
+            last: 1,
+            duration: 1
         };
     },
     methods: {
@@ -31,19 +33,27 @@ export default {
         },
         confirm() {
             worker.postMessage({
-                enable: true,
-                time: 0.1
+                enable: this.enable,
+                time: this.last * 60
             });
         }
     },
     mounted () {
+        me = this;
         worker = new Worker('/src/renderer/assets/eyeWorker.js');
 
         worker.onmessage = function(e) {
-            if (e.data) {
-                alert();
+            if (e.data > 0) {
+                // 开启弹窗提示，要有眼保了
+            } else {
+                // 0秒，开启眼保
+                ipc.send('eyeProtection-start', me.duration * 60);
             }
         };
+
+        ipc.on('eyeProtection-restart', (e) => {
+            me.confirm();
+        });
     }
 }
 </script>

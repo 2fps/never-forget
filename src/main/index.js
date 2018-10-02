@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, globalShortcut } from 'electron'
 
 /**
  * Set `__static` path to static files in production
@@ -45,14 +45,6 @@ app.on('activate', () => {
   }
 })
 const ipc = require('electron').ipcMain;
-ipc.on('eyeProtection',()=>{
-    let newwin = new BrowserWindow({
-        width: 600, 
-        height: 400,
-        frame: false,
-        parent: mainWindow //win是主窗口
-    })
-});
 
 ipc.on('close-app', () => {
     mainWindow.webContents.send('app-close');
@@ -67,6 +59,22 @@ ipc.on('max-app', () => {
 ipc.on('min-app', () => {
   mainWindow.minimize();
 });
-/* 
-app.on('will-quit', () => {
-}) */
+// 眼保开始
+ipc.on('eyeProtection-start', (e, time) => {
+  let newwin = new BrowserWindow({
+    width: 200, 
+    height: 100,
+    frame: false,
+    alwaysOnTop: true,
+    parent: mainWindow //win是主窗口
+  });
+  newwin.loadURL(`file:///${__dirname}/a.html`);
+
+  newwin.setFullScreen(true);
+  setTimeout(function() {
+    newwin.close();
+    // 结束了，可以重新开始计时了
+    mainWindow.webContents.send('eyeProtection-restart');
+  }, time * 1000);
+});
+
