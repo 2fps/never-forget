@@ -26,8 +26,28 @@ function getToday() {
     return str;
 }
 
+// 保存work数据
+let saveEyeData = (data) => {
+    let eyeData = JSON.parse(localStorage.getItem('eye') || '{}');
+
+    // 保存字段
+    eyeData.enable = data.enable;
+    eyeData.last = data.last;
+    eyeData.duration = data.duration;
+
+    localStorage.setItem('eye', JSON.stringify(eyeData));
+};
+
+// 获取work数据
+let getEyeData = () => {
+    let eyeData = JSON.parse(localStorage.getItem('eye') || '{}');
+
+    return eyeData;
+};
 
 export default {
     saveWorkData,
-    getWorkData
+    getWorkData,
+    saveEyeData,
+    getEyeData
 }

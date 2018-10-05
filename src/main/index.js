@@ -65,12 +65,13 @@ ipc.on('eyeProtection-start', (e, time) => {
     width: 200, 
     height: 100,
     frame: false,
-    alwaysOnTop: true,
+    // alwaysOnTop: true,
     parent: mainWindow //win是主窗口
   });
   newwin.loadURL(`file:///${__dirname}/a.html`);
 
-  newwin.setFullScreen(true);
+  // newwin.setFullScreen(true);
+
   setTimeout(function() {
     newwin.close();
     // 结束了，可以重新开始计时了

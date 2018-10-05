@@ -18,7 +18,7 @@ onmessage = function (event) {
     }
 
     if (!enable) {
-        setInterval(timer);
+        clearInterval(timer);
         timer = null;
     } else {
         countdown();
