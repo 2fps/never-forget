@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/pages/eyeProtection').default
     },
     {
+      path: '/setting',
+      name: 'setting',
+      component: require('@/pages/setting').default
+    },
+    {
       path: '*',
       redirect: '/'
     }

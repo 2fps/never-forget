@@ -8,10 +8,10 @@
             <i class="el-icon-view"></i>
             <span slot="title">眼保</span>
         </el-menu-item>
-        <!--<el-menu-item index="3">
+        <el-menu-item index="3" @click="toSetting()">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
-        </el-menu-item> -->
+        </el-menu-item>
     </el-menu>
 </template>
 
@@ -42,6 +42,9 @@ export default {
         },
         toEye() {
             this.$router.push('/eyeProtection');
+        },
+        toSetting() {
+            this.$router.push('/setting');
         }
     },
     mounted() {
