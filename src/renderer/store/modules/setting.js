@@ -13,8 +13,9 @@ const mutations = {
             state.all.alwaysTray = setting.all.alwaysTray;
         }
     },
-    saveTray() {
+    saveTray(state, tray) {
         let setting = cache.getSetting();
+        state.all.alwaysTray = tray;
 
         if (!setting.all) {
             setting.all = {};

@@ -1,5 +1,7 @@
 // 
 let mainWindow = null;
+let appTray = null;
+let app = null;
 const electron = require('electron');
 const ipc = electron.ipcMain;
 const path = require('path');
@@ -17,9 +19,9 @@ function setTray () {
             app.quit();
             app.quit();//因为程序设定关闭为最小化，所以调用两次关闭，防止最大化时一次不能关闭的情况
         }
-    }],
+    }];
     // 当前目录下的app.ico图标
-        appTray = new Tray('app.ico');
+    appTray = new Tray('app.ico');
     //图标的上下文菜单
     const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
 
@@ -43,11 +45,12 @@ ipc.on('open-tray', () => {
     setTray();
 });
 // 应用退出的监听
-ipc.on('close-app', () => {
+/* ipc.on('close-app', () => {
     mainWindow = null;
     appTray.destroy();
-});
+}); */
 
-module.exports = (main) => {
+module.exports = (main, apl) => {
     mainWindow = main;
+    app = apl;
 }

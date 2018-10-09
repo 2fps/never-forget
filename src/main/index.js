@@ -30,7 +30,7 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
-  event(mainWindow);
+  event(mainWindow, app);
 }
 
 app.on('ready', createWindow)

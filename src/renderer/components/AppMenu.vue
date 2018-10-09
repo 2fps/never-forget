@@ -8,7 +8,7 @@
             <i class="el-icon-view"></i>
             <span slot="title">眼保</span>
         </el-menu-item>
-        <el-menu-item index="3" @click="toSetting()">
+        <el-menu-item index="setting" @click="toSetting()">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
         </el-menu-item>
@@ -22,7 +22,8 @@ let me = null;
 export default {
     data() {
         return {
-            nowIndex: ''        // 当前在哪个菜单栏下
+            nowIndex: '',       // 当前在哪个菜单栏下
+            lastIndex: ''       // 前一次index
         };
     },
     methods: {
@@ -35,6 +36,7 @@ export default {
                 this.$store.commit('readCache');
             }
             // 修改记录值
+            this.lastIndex = this.nowIndex;
             this.nowIndex = index;
         },
         toWork() {
@@ -51,12 +53,21 @@ export default {
         me = this;
         this.indexChange('memo');
         this.nowIndex = 'memo';
+    },
+    watch: {
+        nowIndex() {
+            if ('setting' === this.lastIndex) {
+                // 从setting中切出
+                this.$store.commit('saveTrayCache');
+            }
+        }
     }
 };
 ipc.on('app-close', (e) => {
+    let flag = me.$store.state.setting.all.alwaysTray;
     me.$store.commit('writeCache');
     // 判断下是否要最小化到托盘
-    if (true) {
+    if (flag) {
         // 最小化
         ipc.send('open-tray');
     } else {
