@@ -13,6 +13,7 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
+let event = require('./event');
 function createWindow () {
   /**
    * Initial window options
@@ -29,6 +30,7 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+  event(mainWindow);
 }
 
 app.on('ready', createWindow)
@@ -44,13 +46,16 @@ app.on('activate', () => {
     createWindow()
   }
 })
+const electron = require('electron');
 const ipc = require('electron').ipcMain;
+const path = require('path');
 
 ipc.on('close-app', () => {
-    mainWindow.webContents.send('app-close');
-    ipc.on('close-app-ok', () => {
-        mainWindow.close();
-    });
+  // 发起通知告知关闭
+  mainWindow.webContents.send('app-close');
+  ipc.on('close-app-ok', () => {
+      mainWindow.close();
+  });
 });
 
 ipc.on('max-app', () => {
@@ -78,4 +83,3 @@ ipc.on('eyeProtection-start', (e, time) => {
     mainWindow.webContents.send('eyeProtection-restart');
   }, time * 1000);
 });
-

@@ -45,9 +45,20 @@ let getEyeData = () => {
     return eyeData;
 };
 
+let getSetting = () => {
+    let setting = JSON.parse(localStorage.getItem('setting') || '{}');
+
+    return setting;
+};
+let saveSetting = (data) => {
+    localStorage.setItem('setting', JSON.stringify(data));
+};
+
 export default {
     saveWorkData,
     getWorkData,
     saveEyeData,
-    getEyeData
+    getEyeData,
+    getSetting,
+    saveSetting
 }

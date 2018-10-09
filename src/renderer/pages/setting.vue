@@ -1,8 +1,8 @@
 <template>
     <div class="setting-box">
         <el-tabs :tab-position="tabPosition" style="height: 200px;">
-            <el-tab-pane label="备忘录">
-                <setting-memo></setting-memo>
+            <el-tab-pane label="设置">
+                
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -15,7 +15,7 @@ export default {
     components: {
         settingMemo
     }
-}
+};
 </script>
 
 

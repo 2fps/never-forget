@@ -52,12 +52,18 @@ export default {
         this.indexChange('memo');
         this.nowIndex = 'memo';
     }
-}
+};
 ipc.on('app-close', (e) => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaa');
     me.$store.commit('writeCache');
-    ipc.send('close-app-ok');
-})
+    // 判断下是否要最小化到托盘
+    if (true) {
+        // 最小化
+        ipc.send('open-tray');
+    } else {
+        // 直接通知关闭
+        ipc.send('close-app-ok');
+    }
+});
 </script>
 
 <style lang="scss" scoped>
