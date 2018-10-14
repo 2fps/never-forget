@@ -9,11 +9,11 @@
                 <div v-for="(work, index) in unfinishWork" :key="index" class="text item one-work">
                     <p class="finish-main">
                         <span>任务名称：</span>
-                        <span v-text="work.name"></span>
+                        <span v-text="work.name" :title="work.name"></span>
                     </p>
                     <p class="finish-extend">
                         <span>任务内容：</span>
-                        <span v-text="work.content"></span>
+                        <span v-text="work.content" :title="work.content"></span>
                     </p>
                     <div class="operation-icon" @click.stop>
                         <i class="delete-work el-icon-check" title="完成" @click="finish(work.ID)"></i>
@@ -93,15 +93,21 @@ export default {
         color: #606266;
         font-size: 14px;
         margin-bottom: 0px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .finish-extend {
         color: #909399;
         font-size: 12px;
         margin-top: 0px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .delete-work {
         position: absolute;
-        top: 0px;
+        top: 15px;
         right: 0px;
         cursor: pointer;
     }
@@ -125,8 +131,11 @@ export default {
     .operation-icon {
         display: none;
         position: absolute;
-        top: 12px;
-        right: 10px;
+        top: 0px;
+        right: 0px;
+        height: 45px;
+        width: 60px;
+        background-color: #EBEEF5;
     }
     &:hover .operation-icon {
         display: block;

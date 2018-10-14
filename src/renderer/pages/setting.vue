@@ -22,7 +22,7 @@ export default {
     },
     data() {
         return {
-            tray: true
+            tray: false
         };
     },
     methods: {

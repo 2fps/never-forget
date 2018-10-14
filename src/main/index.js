@@ -54,7 +54,9 @@ ipc.on('close-app', () => {
   // 发起通知告知关闭
   mainWindow.webContents.send('app-close');
   ipc.on('close-app-ok', () => {
+    if (mainWindow) {
       mainWindow.close();
+    }
   });
 });
 

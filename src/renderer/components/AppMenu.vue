@@ -58,7 +58,7 @@ export default {
         nowIndex() {
             if ('setting' === this.lastIndex) {
                 // 从setting中切出
-                this.$store.commit('saveTrayCache');
+                this.$store.commit('saveTray');
             }
         }
     }

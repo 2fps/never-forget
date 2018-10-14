@@ -77,21 +77,27 @@ export default {
     position: relative;
     cursor: pointer;
     &:hover {
-        background-color: #DCDFE6;
+        background-color: #EBEEF5;
     }
     .finish-main {
         color: #606266;
         font-size: 14px;
         margin-bottom: 0px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .finish-extend {
         color: #909399;
         font-size: 12px;
         margin-top: 0px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .delete-work {
         position: absolute;
-        top: 0px;
+        top: 15px;
         right: 0px;
         cursor: pointer;
         &:hover {
@@ -101,8 +107,11 @@ export default {
     .operation-icon {
         display: none;
         position: absolute;
-        top: 12px;
-        right: 10px;
+        top: 0px;
+        right: 0px;
+        height: 45px;
+        width: 20px;
+        background-color: #EBEEF5;
     }
     &:hover .operation-icon {
         display: block;

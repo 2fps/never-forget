@@ -2,7 +2,7 @@ import cache from '../../assets/dataBase';
 
 const state = {
     all: {                  // 总的配置，应用的配置
-        alwaysTray: true    // 默认关闭时最小化到托盘
+        alwaysTray: false   // 默认关闭时最小化到托盘
     }
 }
 const mutations = {
