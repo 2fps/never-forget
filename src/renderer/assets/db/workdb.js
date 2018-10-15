@@ -1,4 +1,5 @@
 import dataBase from './connection';
+import Util from '../util';
 
 // 获取设置下的配置
 // storename: 'global'
@@ -23,7 +24,7 @@ exports.getWorkByDate = (dateStr) => {
 
 // 设置任务的配置
 exports.setWorkByDate = (info, dateStr) => {
-    dateStr = dateStr || getNowDate();
+    dateStr = dateStr || Util.getNowDate();
     // 先查询，后修改
     return new Promise((resolve, reject) => {
         let store = dataBase.db.transaction('work', 'readwrite').objectStore('work'),
@@ -46,13 +47,3 @@ exports.setWorkByDate = (info, dateStr) => {
         };
     });
 };
-
-// 获取当前的年月日
-function getNowDate() {
-    let date = new Date(),
-        str = '';
-
-    str += date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-
-    return str;
-}

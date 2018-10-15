@@ -46,7 +46,6 @@ export default {
         worker = new Worker('/src/renderer/assets/eyeWorker.js');
 
         worker.onmessage = function(e) {
-            debugger;
             if (e.data > 0) {
                 // 开启弹窗提示，要有眼保了
             } else {

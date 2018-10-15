@@ -47,8 +47,7 @@ app.on('activate', () => {
   }
 })
 const electron = require('electron');
-const ipc = require('electron').ipcMain;
-const path = require('path');
+const ipc = electron.ipcMain;
 
 ipc.on('close-app', () => {
   // 发起通知告知关闭

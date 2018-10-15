@@ -4,7 +4,15 @@
             <el-tab-pane label="设置">
                 <div>
                     <el-checkbox v-model="tray">关闭时最小化到托盘</el-checkbox>
-                    <el-button type="primary" @click="confirm">保存</el-button>
+                    <el-button type="primary" @click="confirmSetting">保存</el-button>
+                </div>
+            </el-tab-pane>
+        </el-tabs>
+        <el-tabs>
+            <el-tab-pane label="备忘录">
+                <div>
+                    <el-checkbox v-model="inheritWork">第二天默认显示前一天未完成的</el-checkbox>
+                    <el-button type="primary" @click="confirmMemo">保存</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -20,12 +28,17 @@ export default {
     },
     data() {
         return {
-            tray: true
+            tray: true,         // 关闭时是否最小化到托盘
+            inheritWork: false  // 第二天是否显示前一天未完成的任务
         };
     },
     methods: {
-        confirm() {
+        // 保存设置的配置
+        confirmSetting() {
             this.$store.commit('saveTray', this.tray);
+        },
+        confirmMemo() {
+            
         }
     },
     mounted() {

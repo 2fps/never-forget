@@ -17,6 +17,15 @@ export default {
     components: {
         AppMenu,
         TopMenu
+    },
+    methods: {
+        // 检测版本信息
+        checkVersion () {
+
+        }
+    },
+    mounted() {
+        this.checkVersion();
     }
 }
 </script>
