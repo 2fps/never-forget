@@ -16,6 +16,21 @@
                 </div>
             </el-tab-pane>
         </el-tabs>
+        <el-tabs>
+            <el-tab-pane label="聊天机器人">
+                <div>
+                    <div class="form-row">
+                        <p>apiKey:</p>
+                        <el-input
+                            v-model="apiKey"
+                            placeholder="36bff4dc43fe4f10af5d4501a32875bb"
+                            size="small">
+                        </el-input>
+                    </div>
+                    <el-button type="primary" @click="confirmRobot">保存</el-button>
+                </div>
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 
@@ -29,7 +44,8 @@ export default {
     data() {
         return {
             tray: true,         // 关闭时是否最小化到托盘
-            inheritWork: false  // 第二天是否显示前一天未完成的任务
+            inheritWork: false, // 第二天是否显示前一天未完成的任务
+            apiKey: '36bff4dc43fe4f10af5d4501a32875bb'  // 俺的，用户有的，请自己添加
         };
     },
     methods: {
@@ -38,6 +54,9 @@ export default {
             this.$store.commit('saveTray', this.tray);
         },
         confirmMemo() {
+            
+        },
+        confirmRobot() {
             
         }
     },
@@ -52,5 +71,11 @@ export default {
 <style lang="scss" scoped>
 .setting-box {
     padding: 10px 20px;
+}
+.form-row {
+    margin-bottom: 20px;
+    & > p {
+        margin-bottom: 10px;
+    }
 }
 </style>

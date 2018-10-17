@@ -11,7 +11,6 @@ exports.getWorkByDate = (dateStr) => {
             request = store.get(dateStr);
 
         request.onerror = function() {
-            // error
             reject();
         };
         request.onsuccess = function(e) {
