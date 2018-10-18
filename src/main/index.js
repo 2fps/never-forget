@@ -86,7 +86,7 @@ ipc.on('eyeProtection-start', (e, time) => {
     // alwaysOnTop: true,   // 保险
     parent: mainWindow //win是主窗口
   });
-  eyeWindow.loadURL(`file:///${__dirname}/a.html`);
+  eyeWindow.loadURL(`file:///${__dirname}/eyeCover.html`);
 
   eyeWindow.setFullScreen(true);
 
