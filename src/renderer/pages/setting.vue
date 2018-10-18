@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .setting-box {
-    margin: 10px 20px;
+    margin: 10px 40px;
     position: absolute;
     top: 0px;
     right: 0px;

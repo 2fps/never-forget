@@ -21,7 +21,8 @@ function setTray () {
         }
     }];
     // 当前目录下的app.ico图标
-    appTray = new Tray('app.ico');
+    let iconPath = path.join(__dirname, 'app.png');
+    appTray = new Tray(iconPath);
     //图标的上下文菜单
     const contextMenu = Menu.buildFromTemplate(trayMenuTemplate);
 

@@ -31,6 +31,12 @@ function createWindow () {
     mainWindow = null
   })
   event(mainWindow, app);
+
+  // 注册esc，用来关闭眼保的遮挡框
+  globalShortcut.register('ESC', function () {
+    // 关闭眼保
+    eyeTimeUp();
+  })
 }
 
 app.on('ready', createWindow)
@@ -66,22 +72,36 @@ ipc.on('max-app', () => {
 ipc.on('min-app', () => {
   mainWindow.minimize();
 });
+let eyeWindow = null,
+  eyeTimekeeping = null;
 // 眼保开始
 ipc.on('eyeProtection-start', (e, time) => {
-  let newwin = new BrowserWindow({
+  if (eyeWindow) {
+    return;
+  }
+  eyeWindow = new BrowserWindow({
     width: 200, 
     height: 100,
     frame: false,
-    // alwaysOnTop: true,
+    // alwaysOnTop: true,   // 保险
     parent: mainWindow //win是主窗口
   });
-  newwin.loadURL(`file:///${__dirname}/a.html`);
+  eyeWindow.loadURL(`file:///${__dirname}/a.html`);
 
-  // newwin.setFullScreen(true);
+  eyeWindow.setFullScreen(true);
 
-  setTimeout(function() {
-    newwin.close();
-    // 结束了，可以重新开始计时了
-    mainWindow.webContents.send('eyeProtection-restart');
+  eyeTimekeeping = setTimeout(function() {
+    eyeTimeUp();
   }, time * 1000);
 });
+
+function eyeTimeUp() {
+  if (eyeWindow) {
+    eyeWindow.close();
+    eyeWindow = null;
+    clearTimeout(eyeTimekeeping);
+    eyeTimekeeping = null;
+    // 结束了，可以重新开始计时了
+    mainWindow.webContents.send('eyeProtection-restart');
+  }
+}
