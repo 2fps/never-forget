@@ -6,7 +6,7 @@
         <el-col :span="9" style="height:100%">
             <unfinish-work></unfinish-work>
         </el-col>
-        <el-col :span="9">
+        <el-col :span="9" style="height:100%">
             <finished-work></finished-work>
         </el-col>
     </el-row>

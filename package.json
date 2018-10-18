@@ -1,17 +1,14 @@
 {
   "name": "never-forget",
   "productName": "never-forget",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "2fps <'echoweb@126.com'>",
-  "description": "An electron-vue project",
+  "description": "基于electron的小工具",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
-    "build": "node .electron-vue/build.js",
-    "build:darwin": "cross-env BUILD_TARGET=darwin node .electron-vue/build.js",
-    "build:linux": "cross-env BUILD_TARGET=linux node .electron-vue/build.js",
-    "build:mas": "cross-env BUILD_TARGET=mas node .electron-vue/build.js",
-    "build:win32": "cross-env BUILD_TARGET=win32 node .electron-vue/build.js",
+    "build": "node .electron-vue/build.js && electron-builder",
+    "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
     "dev": "node .electron-vue/dev-runner.js",
@@ -21,6 +18,40 @@
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "postinstall": "npm run lint:fix"
+  },
+  "build": {
+    "productName": "never-forget",
+    "appId": "none",
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "dist/electron/**/*"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "mac": {
+      "icon": "build/icons/icon.icns"
+    },
+    "win": {
+      "icon": "build/icons/icon.ico"
+    },
+    "linux": {
+      "icon": "build/icons"
+    }
   },
   "dependencies": {
     "vue": "^2.5.16",
@@ -47,6 +78,7 @@
     "del": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "^2.0.4",
+    "electron-builder": "^20.28.4",
     "electron-debug": "^1.5.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-packager": "^12.1.0",

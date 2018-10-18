@@ -69,4 +69,10 @@ export default {
     height: 16px;
     padding: 7px;
 }
+.el-icon-close:hover {
+    color: #F56C6C;
+}
+.el-icon-sort:hover, .el-icon-minus:hover {
+    color: #409EFF;
+}
 </style>

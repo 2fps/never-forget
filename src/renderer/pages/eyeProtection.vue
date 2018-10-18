@@ -9,10 +9,10 @@
         </el-switch>
         <p>
             <span>间隔时间：</span>
-            <el-input-number v-model="last" :step="5" @change="changeValue"></el-input-number>
+            <el-input-number :min="30" :max="120" v-model="last" :step="5" @change="changeValue"></el-input-number>
         </p>
         <!-- <el-input-number v-model="duration" :step="1" @change="changeValue"></el-input-number> -->
-        <el-button type="primary" @click="confirm()">确认</el-button>
+        <el-button type="primary" @click="confirm()">保存</el-button>
     </div>
 </template>
 
