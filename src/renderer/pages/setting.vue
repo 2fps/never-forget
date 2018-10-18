@@ -4,12 +4,13 @@
             <el-tab-pane label="设置">
                 <div>
                     <el-checkbox v-model="tray">关闭时最小化到托盘</el-checkbox>
-<<<<<<< HEAD
+                </div>
+                <div class="bottom-btn">
                     <el-button type="primary" @click="confirmSetting">保存</el-button>
                 </div>
             </el-tab-pane>
         </el-tabs>
-        <el-tabs>
+<!--         <el-tabs>
             <el-tab-pane label="备忘录">
                 <div>
                     <el-checkbox v-model="inheritWork">第二天默认显示前一天未完成的</el-checkbox>
@@ -29,14 +30,9 @@
                         </el-input>
                     </div>
                     <el-button type="primary" @click="confirmRobot">保存</el-button>
-=======
-                </div>
-                <div class="bottom-btn">
-                    <el-button type="primary" @click="confirm">保存</el-button>
->>>>>>> f435c1606b28c4fc7e527280f474ee5c45e3f85a
                 </div>
             </el-tab-pane>
-        </el-tabs>
+        </el-tabs> -->
     </div>
 </template>
 
@@ -49,13 +45,9 @@ export default {
     },
     data() {
         return {
-<<<<<<< HEAD
-            tray: true,         // 关闭时是否最小化到托盘
+            tray: false,        // 关闭时是否最小化到托盘
             inheritWork: false, // 第二天是否显示前一天未完成的任务
             apiKey: '36bff4dc43fe4f10af5d4501a32875bb'  // 俺的，用户有的，请自己添加
-=======
-            tray: false
->>>>>>> f435c1606b28c4fc7e527280f474ee5c45e3f85a
         };
     },
     methods: {

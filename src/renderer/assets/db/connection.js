@@ -9,9 +9,15 @@ var me = {
     }
 };
 let connect = () => {
-    let indexedDB = window.indexedDB;
+    let indexedDB = window.indexedDB,
+        instance = null;
 
-    return new Promise((resolve, reject) => {
+    if (instance) {
+        // connect后一直返回实例就行了
+        return instance;
+    }
+
+    instance = new Promise((resolve, reject) => {
         // 打开连接
         me.request = indexedDB.open(me.name, 1);
         // 异常
@@ -21,39 +27,39 @@ let connect = () => {
         };
         // 连接成功
         me.request.onsuccess = function(e) {
-            me.database = e.target.result;
+            me.db = e.target.result;
             resolve('success');
         }
         // 
         me.request.onupgradeneeded = (e) => {
-            me.database = e.target.result;
+            me.db = e.target.result;
             // 
-            if (!me.database.objectStoreNames.contains('setting')){
-                let store = me.database.createObjectStore("setting", {
+            if (!me.db.objectStoreNames.contains('setting')){
+                let store = me.db.createObjectStore("setting", {
                     keyPath: 'name'
                 });
-                // var store = me.database.createObjectStore("setting",{autoIncrement:true}/* ,{keyPath:"id"} */);
-                request = store.add({
+                // var store = me.db.createObjectStore("setting",{autoIncrement:true}/* ,{keyPath:"id"} */);
+                me.request = store.add({
                     name: 'setting',
                     global: {
                         tray: true
                     }
                 });
             }
-            if (!me.database.objectStoreNames.contains('work')) {
-                let store = me.database.createObjectStore("work", {
+            if (!me.db.objectStoreNames.contains('work')) {
+                let store = me.db.createObjectStore("work", {
                     keyPath: 'date'
                 });
-                request = store.add({
+                me.request = store.add({
                     date: '123'
                 });
             }
-            if (!me.database.objectStoreNames.contains('eye')) {
-                let store = me.database.createObjectStore("eye", {
+            if (!me.db.objectStoreNames.contains('eye')) {
+                let store = me.db.createObjectStore("eye", {
                     keyPath: 'name'
                 });
-                request = store.add({
-                    name: 'setting',
+                me.request = store.add({
+                    name: 'config',
                     enable: false,
                     wait: 45 * 60,
                     duration: 60
@@ -63,10 +69,19 @@ let connect = () => {
             resolve('update');
         }
     });
+
+    return instance;
 };
 
-// 连接
-connect();
+if (!me.db) {
+    connect();
+}
 
+/* // 连接
+if (!me.db) {
+    connect();
+}
+ */
+me.connect = connect;
 
 export default me;
