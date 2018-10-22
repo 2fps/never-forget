@@ -36,15 +36,7 @@ html, body, p, ul, li {
     padding: 0px;
     margin: 0px;
 }
-@font-face {
-    font-family: 'HansHandItalic';
-    src: url-loader('../../static/font/fontawesome-webfont.eot');
-    src: url-loader('../../static/font/fontawesome-webfont?#iefix') format('embedded-opentype'),
-         url-loader('../../static/font/fontawesome-webfont.woff') format('woff'),
-         url-loader('../../static/font/fontawesome-webfont.ttf') format('truetype');
-}
 html, body {
-    /* font-family: 'HansHandItalic'; */
     height: 100%;
 }
 #app {
