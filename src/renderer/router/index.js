@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/pages/eyeProtection').default
     },
     {
+      path: '/compression',
+      name: 'memo',
+      component: require('@/pages/compression').default
+    },
+    {
       path: '/setting',
       name: 'setting',
       component: require('@/pages/setting').default

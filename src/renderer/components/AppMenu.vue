@@ -8,6 +8,10 @@
             <i class="el-icon-view"></i>
             <span slot="title">眼保</span>
         </el-menu-item>
+         <el-menu-item index="compression" @click="toCompression()">
+            <i class="el-icon-view"></i>
+            <span slot="title">文件压缩</span>
+        </el-menu-item>
         <el-menu-item index="setting" @click="toSetting()">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
@@ -44,6 +48,9 @@ export default {
         },
         toEye() {
             this.$router.push('/eyeProtection');
+        },
+        toCompression() {
+            this.$router.push('/compression');
         },
         toSetting() {
             this.$router.push('/setting');
