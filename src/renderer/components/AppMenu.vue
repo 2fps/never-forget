@@ -8,10 +8,14 @@
             <i class="el-icon-view"></i>
             <span slot="title">眼保</span>
         </el-menu-item>
+         <el-menu-item index="robot" @click="toRobot()">
+            <i class="el-icon-view"></i>
+            <span slot="title">聊天机器人</span>
+        </el-menu-item><!-- 
          <el-menu-item index="compression" @click="toCompression()">
             <i class="el-icon-view"></i>
             <span slot="title">文件压缩</span>
-        </el-menu-item>
+        </el-menu-item> -->
         <el-menu-item index="setting" @click="toSetting()">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
@@ -51,6 +55,9 @@ export default {
         },
         toCompression() {
             this.$router.push('/compression');
+        },
+        toRobot() {
+            this.$router.push('/robot');
         },
         toSetting() {
             this.$router.push('/setting');

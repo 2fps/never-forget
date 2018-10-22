@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/pages/eyeProtection').default
     },
     {
+      path: '/robot',
+      name: 'memo',
+      component: require('@/pages/robot').default
+    },
+    {
       path: '/compression',
       name: 'memo',
       component: require('@/pages/compression').default

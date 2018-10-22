@@ -11,7 +11,7 @@
         </div>
         <div class="message-input-box">
             <input type="text" v-model="msg" class="message-input" placeholder="input message here" />
-            <button class="message-button" @click="sendToRobot">send</button>
+            <button class="message-button" @click="sendToRobot" @keypress.enter.native="sendToRobot">send</button>
         </div>
     </div>
 </template>
@@ -31,6 +31,8 @@ let info = {
     }
 },
     me = null;
+const ipc = require('electron').ipcRenderer;
+
 export default {
     data () {
         return {
@@ -41,38 +43,41 @@ export default {
     },
     methods: {
         sendToRobot () {
+            // 通知主进程发送请求
+            ipc.send('http-request', {
+                text: this.msg,
+                method: 'POST'
+            });
             this.talk.push({
                 index: this.index,
                 content: this.msg,
                 beloneTo: 'me'
             });
             ++this.index;
-            info.perception.inputText.text = this.msg;
             // 置空
             this.msg = '';
-
-            // 请求配置
-            this.$http.post('http://openapi.tuling123.com/openapi/api/v2', qs.stringify(info)).then((info) => {
-                let returnMsg = JSON.parse(info.data).results[0].values.text;
-                me.talk.push({
-                    index: me.index,
-                    content: returnMsg,
-                    beloneTo: 'robot'
-                });
-                ++me.index;
-            });
         },
-        mounted() {
-            this.talk.push({
-                index: 0,
-                content: '1',
+    },
+    mounted() {
+        this.talk.push({
+            index: 0,
+            content: '11111',
+            beloneTo: 'robot'
+        });
+        me = this;
+        
+        ipc.on('http-request-data', (e, data) => {
+            let returnMsg = JSON.parse(data.dataStr).results[0].values.text;
+            me.talk.push({
+                index: me.index,
+                content: returnMsg,
                 beloneTo: 'robot'
             });
-            me = this;
-        },
-        created () {
+            ++me.index;
+        });
+    },
+    created () {
 
-        }
     }
 }
 </script>

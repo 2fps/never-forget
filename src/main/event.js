@@ -2,7 +2,9 @@
 let mainWindow = null;
 let appTray = null;
 let app = null;
+
 const electron = require('electron');
+const http = require('http');
 const ipc = electron.ipcMain;
 const path = require('path');
 
@@ -45,11 +47,6 @@ function setTray () {
 ipc.on('open-tray', () => {
     setTray();
 });
-// 应用退出的监听
-/* ipc.on('close-app', () => {
-    mainWindow = null;
-    appTray.destroy();
-}); */
 
 module.exports = (main, apl) => {
     mainWindow = main;
