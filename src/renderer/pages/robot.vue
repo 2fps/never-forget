@@ -10,8 +10,8 @@
             </div>
         </div>
         <div class="message-input-box">
-            <input type="text" v-model="msg" class="message-input" placeholder="input message here" />
-            <button class="message-button" @click="sendToRobot" @keypress.enter.native="sendToRobot">send</button>
+            <input type="text" v-model="msg" class="message-input" placeholder="input message here" @keypress.enter="sendToRobot" />
+            <el-button size="medium" round class="message-button" @click.native="sendToRobot">send</el-button>
         </div>
     </div>
 </template>
@@ -56,12 +56,13 @@ export default {
             ++this.index;
             // 置空
             this.msg = '';
-        },
+        }
     },
     mounted() {
+        debugger;
         this.talk.push({
             index: 0,
-            content: '11111',
+            content: '你好',
             beloneTo: 'robot'
         });
         me = this;
@@ -82,14 +83,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .content-box {
     position: absolute;
     top: 0px;
     right: 0px;
     bottom: 3em;
     left: 0px;
-    padding: 5px;
+    padding: 20px;
     overflow: scroll;
 }
 .content-msg-box {
@@ -124,23 +125,28 @@ export default {
     background-color: #EBEEF5;
 }
 .message-input-box > .message-input {
-    position: absolute;
     border: 1px solid #ccc;
-    display: inline-block;
-    margin: 2px;
-    height: 1.5em;
-    right: 4.5em;
-    left: 0.5px;
+    height: 2em;
+    line-height: 2em;
     padding: 0px 10px;
     border-radius: 6px;
+    display: block;
+    margin-right: 60px;
+    width: -webkit-fill-available;
+    &:focus {
+        outline: none;
+    }
 }
 .message-button {
     background-color: #67C23A;
+    padding: 0px;
     width: 3.6em;
-    height: 1.6em;
+    height: 2.4em;
+    line-height: 28px;
     position: absolute;
     top: 0.2em;
     right: 0.2em;
+    color: #fff;
     bottom: 0.2px;
 }
 </style>
