@@ -10,14 +10,17 @@
             </div>
         </div>
         <div class="message-input-box">
+            <button type="button" class="recoder-btn" @mousedown="startRecod" @mouseup="stopRecoder">111</button>
             <input type="text" v-model="msg" class="message-input" placeholder="input message here" @keypress.enter="sendToRobot" />
             <el-button size="medium" round class="message-button" @click.native="sendToRobot">send</el-button>
+            <audio controls autoplay></audio>
         </div>
     </div>
 </template>
 
 <script>
-import qs from 'qs';
+import Recoder from '../assets/recoder.js';
+
 let info = {
     "reqType": 0,
     "perception": {
@@ -32,6 +35,10 @@ let info = {
 },
     me = null;
 const ipc = require('electron').ipcRenderer;
+let rec = new Recoder();
+let audio = null;
+
+rec.ready();
 
 export default {
     data () {
@@ -56,10 +63,16 @@ export default {
             ++this.index;
             // 置空
             this.msg = '';
+        },
+        startRecod() {
+            rec.start();
+        },
+        stopRecoder() {
+            rec.stop();
+            rec.play(audio);
         }
     },
     mounted() {
-        debugger;
         this.talk.push({
             index: 0,
             content: '你好',
@@ -76,6 +89,8 @@ export default {
             });
             ++me.index;
         });
+
+        audio = document.querySelector('audio');
     },
     created () {
 
@@ -124,6 +139,12 @@ export default {
     border-top: 1px solid #DCDFE6;
     background-color: #EBEEF5;
 }
+.recoder-btn {
+    position: absolute;
+    left: 0px;
+    widows: 30px;
+    height: 30px;
+}
 .message-input-box > .message-input {
     border: 1px solid #ccc;
     height: 2em;
@@ -132,6 +153,7 @@ export default {
     border-radius: 6px;
     display: block;
     margin-right: 60px;
+    margin-left: 30px;
     width: -webkit-fill-available;
     &:focus {
         outline: none;
