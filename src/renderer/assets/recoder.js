@@ -53,7 +53,7 @@ Recorder.prototype.ready = function() {
 
 Recorder.prototype.start = function(stream) {
     // 清空数据
-    this.buffer = [];
+    this.buffer.length = 0;
     this.size = 0;
 
     this.audioInput.connect(this.recorder);

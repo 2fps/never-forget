@@ -68,8 +68,13 @@ export default {
             rec.start();
         },
         stopRecoder() {
-            rec.stop();
-            rec.play(audio);
+            let data = new FormData();
+            data.append('data', rec.getBlob());
+            
+
+            this.$http.post('http://127.0.0.1:3000/voice', {name: 'aaa'}).then(res=>{
+                console.log('res=>',res);            
+            });
         }
     },
     mounted() {
