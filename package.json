@@ -1,7 +1,7 @@
 {
   "name": "never-forget",
   "productName": "never-forget",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "2fps <'echoweb@126.com'>",
   "description": "基于electron的小工具",
   "license": null,

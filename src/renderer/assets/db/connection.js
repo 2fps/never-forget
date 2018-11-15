@@ -46,6 +46,7 @@ let connect = () => {
                     }
                 });
             }
+            //
             if (!me.db.objectStoreNames.contains('work')) {
                 let store = me.db.createObjectStore("work", {
                     keyPath: 'date'
@@ -54,6 +55,7 @@ let connect = () => {
                     date: '123'
                 });
             }
+            // 眼保数据
             if (!me.db.objectStoreNames.contains('eye')) {
                 let store = me.db.createObjectStore("eye", {
                     keyPath: 'name'
@@ -63,6 +65,15 @@ let connect = () => {
                     enable: false,
                     wait: 45 * 60,
                     duration: 60
+                });
+            }
+            // 机器人apikey，用我默认的，用户有，最好
+            if (!me.db.objectStoreNames.contains('robot')) {
+                let store = me.db.createObjectStore("robot", {
+                    keyPath: 'apikey'
+                });
+                me.request = store.add({
+                    apikey: '36bff4dc43fe4f10af5d4501a32875bb'
                 });
             }
 

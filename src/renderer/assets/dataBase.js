@@ -54,11 +54,23 @@ let saveSetting = (data) => {
     localStorage.setItem('setting', JSON.stringify(data));
 };
 
+// 获取图灵机器人apikey
+let getRobotApiKey = () => {
+    return JSON.parse(localStorage.getItem('robot') || '{"apikey":"36bff4dc43fe4f10af5d4501a32875bb"}');
+};
+
+// 设置图灵机器人apikey
+let setRobotApiKey = (data) => {
+    localStorage.setItem('robot', JSON.stringify(data));
+};
+
 export default {
     saveWorkData,
     getWorkData,
     saveEyeData,
     getEyeData,
     getSetting,
-    saveSetting
+    saveSetting,
+    getRobotApiKey,
+    setRobotApiKey
 }

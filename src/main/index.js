@@ -170,7 +170,7 @@ function combineInfo(config) {
         }
     },
     "userInfo": {
-        "apiKey": "36bff4dc43fe4f10af5d4501a32875bb",
+        "apiKey": config.apiKey,
         "userId": ~~(Math.random() * 99999)
     }
   };

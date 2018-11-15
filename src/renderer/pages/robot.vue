@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="robot">
         <div class="content-box">
             <div class="content-msg-box" ref="messageInfo" v-for="(mg, index) in talk" :key="index">
                 <p :class="[
@@ -10,35 +10,18 @@
             </div>
         </div>
         <div class="message-input-box">
-            <button type="button" class="recoder-btn" @mousedown="startRecod" @mouseup="stopRecoder">111</button>
             <input type="text" v-model="msg" class="message-input" placeholder="input message here" @keypress.enter="sendToRobot" />
             <el-button size="medium" round class="message-button" @click.native="sendToRobot">send</el-button>
-            <audio controls autoplay></audio>
         </div>
     </div>
 </template>
 
 <script>
-import Recoder from '../assets/recoder.js';
+import qs from 'qs';
 
-let info = {
-    "reqType": 0,
-    "perception": {
-            "inputText": {
-            "text": ''
-        }
-    },
-    "userInfo": {
-        "apiKey": "36bff4dc43fe4f10af5d4501a32875bb",
-        "userId": ~~(Math.random() * 99999)
-    }
-},
-    me = null;
+let me = null;
+
 const ipc = require('electron').ipcRenderer;
-let rec = new Recoder();
-let audio = null;
-
-rec.ready();
 
 export default {
     data () {
@@ -50,10 +33,15 @@ export default {
     },
     methods: {
         sendToRobot () {
+            if ('' === this.msg) {
+                // 没有输入信息时，不去请求
+                return;
+            }
             // 通知主进程发送请求
             ipc.send('http-request', {
                 text: this.msg,
-                method: 'POST'
+                method: 'POST',
+                apiKey: this.apiKey
             });
             this.talk.push({
                 index: this.index,
@@ -64,17 +52,13 @@ export default {
             // 置空
             this.msg = '';
         },
-        startRecod() {
-            rec.start();
-        },
-        stopRecoder() {
-            let data = new FormData();
-            data.append('data', rec.getBlob());
+        // 显示最底部的信息
+        showBottomTalk () {
+            let dom = document.querySelector('#robot').querySelector('.content-box').lastElementChild;
             
-
-            this.$http.post('http://127.0.0.1:3000/voice', {name: 'aaa'}).then(res=>{
-                console.log('res=>',res);            
-            });
+            if (dom) {
+                dom.scrollIntoView(true);
+            }
         }
     },
     mounted() {
@@ -84,7 +68,7 @@ export default {
             beloneTo: 'robot'
         });
         me = this;
-        
+
         ipc.on('http-request-data', (e, data) => {
             let returnMsg = JSON.parse(data.dataStr).results[0].values.text;
             me.talk.push({
@@ -93,12 +77,14 @@ export default {
                 beloneTo: 'robot'
             });
             ++me.index;
+            this.showBottomTalk();
         });
 
-        audio = document.querySelector('audio');
     },
     created () {
-
+        // 获取apikey
+        this.$store.commit('getApi');
+        this.apiKey = this.$store.state.robot.apikey;
     }
 }
 </script>
@@ -144,12 +130,6 @@ export default {
     border-top: 1px solid #DCDFE6;
     background-color: #EBEEF5;
 }
-.recoder-btn {
-    position: absolute;
-    left: 0px;
-    widows: 30px;
-    height: 30px;
-}
 .message-input-box > .message-input {
     border: 1px solid #ccc;
     height: 2em;
@@ -158,7 +138,6 @@ export default {
     border-radius: 6px;
     display: block;
     margin-right: 60px;
-    margin-left: 30px;
     width: -webkit-fill-available;
     &:focus {
         outline: none;

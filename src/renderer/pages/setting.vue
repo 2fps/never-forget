@@ -9,35 +9,27 @@
                     <el-button type="primary" @click="confirmSetting">保存</el-button>
                 </div>
             </el-tab-pane>
-        </el-tabs>
-<!--         <el-tabs>
-            <el-tab-pane label="备忘录">
-                <div>
-                    <el-checkbox v-model="inheritWork">第二天默认显示前一天未完成的</el-checkbox>
-                    <el-button type="primary" @click="confirmMemo">保存</el-button>
-                </div>
-            </el-tab-pane>
-        </el-tabs>
-        <el-tabs>
             <el-tab-pane label="聊天机器人">
                 <div>
                     <div class="form-row">
                         <p>apiKey:</p>
                         <el-input
-                            v-model="apiKey"
-                            placeholder="36bff4dc43fe4f10af5d4501a32875bb"
+                            v-model="newApiKey"
+                            :placeholder="oldApiKey"
                             size="small">
                         </el-input>
                     </div>
                     <el-button type="primary" @click="confirmRobot">保存</el-button>
                 </div>
             </el-tab-pane>
-        </el-tabs> -->
+        </el-tabs>
         <audio controls autoplay></audio>
     </div>
 </template>
 
 <script>
+var recorder;
+var audio = document.querySelector('audio');
 import settingMemo from './settingMemo';
 
 export default {
@@ -48,7 +40,8 @@ export default {
         return {
             tray: false,        // 关闭时是否最小化到托盘
             inheritWork: false, // 第二天是否显示前一天未完成的任务
-            apiKey: '36bff4dc43fe4f10af5d4501a32875bb'  // 俺的，用户有的，请自己添加
+            newApiKey: '',      // 用户自己有apikey的，请自己添加
+            oldApiKey: ''
         };
     },
     methods: {
@@ -60,12 +53,21 @@ export default {
             
         },
         confirmRobot() {
-            
+            this.$store.commit('setApi', this.newApiKey);
+        },
+        // 获取老的apikey显示成placeholder
+        getRobotOldApiKey() {
+            this.$store.commit('getApi');
+            this.oldApiKey = this.$store.state.robot.apikey;
+            this.newApiKey = this.oldApiKey;
         }
     },
     mounted() {
         this.$store.commit('getAllConfig');
         this.tray = this.$store.state.setting.all.alwaysTray;
+    },
+    created() {
+        this.getRobotOldApiKey();
     }
 };
 </script>
