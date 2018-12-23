@@ -68,7 +68,12 @@ ipc.on('close-app', () => {
 });
 
 ipc.on('max-app', () => {
-  mainWindow.maximize();
+  // mainWindow.maximize();
+  if (mainWindow.isMaximized()) {
+    mainWindow.unmaximize()
+  } else {
+      mainWindow.maximize()
+  }
 });
 ipc.on('min-app', () => {
   mainWindow.minimize();
